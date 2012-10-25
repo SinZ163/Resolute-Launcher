@@ -214,6 +214,17 @@ namespace Resolute_Launcher {
                         }
                         statusLabel.Text = "Downloading minecraft.jar";
                         client.DownloadFileAsync(new Uri(link), path + "minecraft.jar");
+                    } else {
+                        if (!File.Exists(path + "dependancy.txt")) {
+                            using (StreamWriter sw = File.CreateText(path + "dependancy.txt")) {
+                                sw.Write(link);
+                                sw.Close();
+                            }
+                            downloadAndInstallDependancys();
+                        }
+                        else {
+                            launchMinecraft();
+                        }
                     }
                 }
                 else {
