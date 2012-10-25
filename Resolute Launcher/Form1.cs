@@ -171,16 +171,10 @@ namespace Resolute_Launcher {
             while (b != true) {
                 if (lines[i].Contains("assets") & lines[i].Contains("minecraft.jar")) {
                     link = lines[i];
-                    link = link.Substring(6, 48); //TODO: Get better trimming code.
-                    version = link.Substring(28, 6);
-                    if (version.Contains("/")) {
-                        link = link.Substring(0, 47);
-                        version = version.Substring(0, 5);
-                    }
-                    if (version.Contains("/")) {
-                        link = link.Substring(0, 45);
-                        version = version.Substring(0, 3);
-                    }
+                    link = link.Substring(6, link.Length - 6); // Remove first 6.
+                    link = link.Substring(0, link.IndexOf("\""));
+                    String[] mysplit = link.Split('/');
+                    version = mysplit[3];
                     b = true;
                 }
                 i++;
@@ -207,7 +201,7 @@ namespace Resolute_Launcher {
             if (!File.Exists(path + version + ".txt")) {
                 if (File.Exists(path + "minecraft.jar")) {
                     DialogResult result = MessageBox.Show("There is an update available, Do you want to update?", "Update available", MessageBoxButtons.YesNo);
-                    if (result == System.Windows.Forms.DialogResult.Yes) {
+                    if (result == DialogResult.Yes) {
                         using (StreamWriter sw = File.CreateText(path + version + ".txt")) {
                             sw.Write(link);
                             sw.Close();
