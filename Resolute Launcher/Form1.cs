@@ -353,6 +353,9 @@ namespace Resolute_Launcher {
         // ==================================================== \\
         */
         private void Resolute_Launcher_Load(object sender, EventArgs e) {
+            if (!Directory.Exists(rootPath))
+                Directory.CreateDirectory(path);
+
             if (File.Exists(rootPath + "rememberMe.txt")) {
                 String hash;
                 String settings;
