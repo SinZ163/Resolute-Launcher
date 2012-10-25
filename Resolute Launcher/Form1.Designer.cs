@@ -190,6 +190,7 @@
             // 
             // statusBar
             // 
+            this.statusBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.statusBar.Location = new System.Drawing.Point(12, 530);
             this.statusBar.Name = "statusBar";
             this.statusBar.Size = new System.Drawing.Size(100, 23);
@@ -197,6 +198,7 @@
             // 
             // statusLabel
             // 
+            this.statusLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.statusLabel.AutoSize = true;
             this.statusLabel.Location = new System.Drawing.Point(118, 533);
             this.statusLabel.Name = "statusLabel";
@@ -206,6 +208,7 @@
             // 
             // button1
             // 
+            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button1.Location = new System.Drawing.Point(12, 504);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(140, 23);
