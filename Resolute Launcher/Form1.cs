@@ -342,11 +342,13 @@ namespace Resolute_Launcher {
         */
 
         public void launchMinecraft() {
-            ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo("cmd.exe", "/q /c cd %appdata%\\.minecraft\\bin & java -Djava.library.path=\"natives\" -cp jinput.jar;lwjgl.jar;lwjgl_util.jar;minecraft.jar net.minecraft.client.Minecraft " + username + " " + sessionID +" & pause");
+            ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo("cmd.exe", "/q /c cd %appdata%\\.minecraft\\bin & java -Djava.library.path=\"natives\" -cp jinput.jar;lwjgl.jar;lwjgl_util.jar;minecraft.jar net.minecraft.client.Minecraft " + username + " " + sessionID);
             Process proc = new System.Diagnostics.Process();
 
-            if (consoleButton.Checked == false)
+            if (consoleButton.Checked == false) {
                 procStartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+                procStartInfo.Arguments += " &pause";
+            }
 
             proc.StartInfo = procStartInfo;
             proc.Start();
@@ -359,7 +361,7 @@ namespace Resolute_Launcher {
         */
         private void Resolute_Launcher_Load(object sender, EventArgs e) {
             if (!Directory.Exists(rootPath))
-                Directory.CreateDirectory(path);
+                Directory.CreateDirectory(rootPath);
 
             if (File.Exists(rootPath + "rememberMe.txt")) {
                 String hash;
