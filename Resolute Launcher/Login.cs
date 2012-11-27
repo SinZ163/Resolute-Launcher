@@ -52,8 +52,8 @@ namespace Resolute_Launcher {
                 mainForm.version = output[0];
 
                 if (mainForm.snapshotButton.Checked) {
-                    mainForm.path = mainForm.rootPath + "snapshot\\.minecraft\\bin\\";
-                    Environment.SetEnvironmentVariable("APPDATA", mainForm.rootPath + "snapshot\\");
+                    mainForm.path = mainForm.rootPath + "snapshot/.minecraft/bin/";
+                    Environment.SetEnvironmentVariable("APPDATA", mainForm.rootPath + "snapshot/");
                     if (mainForm.updateButton.Checked == true) {
                         Snapshot snapshot = new Snapshot(mainForm);
                         snapshot.detectSnapshotVersion();
@@ -64,8 +64,8 @@ namespace Resolute_Launcher {
 
                 }
                 else if (mainForm.normalButton.Checked) {
-                    mainForm.path = mainForm.rootPath + "normal\\.minecraft\\bin\\";
-                    Environment.SetEnvironmentVariable("APPDATA", mainForm.rootPath + "normal\\");
+                    mainForm.path = mainForm.rootPath + "normal/.minecraft/bin/";
+                    Environment.SetEnvironmentVariable("APPDATA", mainForm.rootPath + "normal/");
                     if (mainForm.updateButton.Checked == true) {
                         mainForm.link = mainForm.downloadlink + "minecraft.jar";
                         Download download = new Download(mainForm);

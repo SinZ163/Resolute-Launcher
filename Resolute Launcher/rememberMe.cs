@@ -19,7 +19,7 @@ namespace Resolute_Launcher {
         private static readonly byte[] LastLoginSalt = new byte[] { 0x0c, 0x9d, 0x4a, 0xe4, 0x1e, 0x83, 0x15, 0xfc };
         private const string LastLoginPassword = "passwordfile";
 
-        static String rootPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).ToString() + "\\.resolute\\";
+        static String rootPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).ToString() + "/.resolute/";
         static String lastLoginPath = rootPath + "lastlogin";
 
         public String[] GetLastLogin() {
