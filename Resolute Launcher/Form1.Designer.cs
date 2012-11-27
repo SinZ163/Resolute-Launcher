@@ -23,6 +23,8 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
+            Login login = new Login(this);
+
             this.launchButton = new System.Windows.Forms.Button();
             this.passText = new System.Windows.Forms.TextBox();
             this.userText = new System.Windows.Forms.TextBox();
@@ -50,7 +52,7 @@
             this.launchButton.TabIndex = 2;
             this.launchButton.Text = "Launch!";
             this.launchButton.UseVisualStyleBackColor = true;
-            this.launchButton.Click += new System.EventHandler(this.launchButton_Click);
+            this.launchButton.Click += new System.EventHandler(login.launchButton_Click);
             // 
             // passText
             // 
@@ -249,21 +251,21 @@
 
         #endregion
 
-        private System.Windows.Forms.Button launchButton;
-        private System.Windows.Forms.TextBox passText;
-        private System.Windows.Forms.TextBox userText;
+        public System.Windows.Forms.Button launchButton;
+        public System.Windows.Forms.TextBox passText;
+        public System.Windows.Forms.TextBox userText;
         private System.Windows.Forms.Label userLabel;
         private System.Windows.Forms.Label passLabel;
-        private System.Windows.Forms.CheckBox consoleButton;
-        private System.Windows.Forms.CheckBox updateButton;
-        private System.Windows.Forms.RadioButton snapshotButton;
-        private System.Windows.Forms.RadioButton normalButton;
+        public System.Windows.Forms.CheckBox consoleButton;
+        public System.Windows.Forms.CheckBox updateButton;
+        public System.Windows.Forms.RadioButton snapshotButton;
+        public System.Windows.Forms.RadioButton normalButton;
         private System.Windows.Forms.Button forceUpdateButton;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.WebBrowser webBrowser;
-        private System.Windows.Forms.CheckBox rememberBox;
-        private System.Windows.Forms.ProgressBar statusBar;
-        private System.Windows.Forms.Label statusLabel;
+        public System.Windows.Forms.CheckBox rememberBox;
+        public System.Windows.Forms.ProgressBar statusBar;
+        public System.Windows.Forms.Label statusLabel;
         private System.Windows.Forms.Button button1;
     }
 }

@@ -7,8 +7,8 @@ using System.Reflection;
 using System.Windows.Forms;
 
 namespace Resolute_Launcher {
-    partial class AboutBox1 : Form {
-        public AboutBox1() {
+    partial class aboutResolute : Form {
+        public aboutResolute() {
             InitializeComponent();
             this.Text = String.Format("About {0}", AssemblyTitle);
             this.labelProductName.Text = AssemblyProduct;

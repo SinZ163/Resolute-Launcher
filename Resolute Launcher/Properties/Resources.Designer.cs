@@ -59,15 +59,5 @@ namespace Resolute_Launcher.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
-        public static byte[] hide {
-            get {
-                object obj = ResourceManager.GetObject("hide", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
     }
 }

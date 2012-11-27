@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Resolute Launcher")]
-[assembly: AssemblyDescription("Resolute Launcher was made by SinZ, with password encryption provided by umby24.")]
+[assembly: AssemblyDescription("Resolute Launcher was made by SinZ, with lastLogin functions provided by SirCmpwn")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Resolute Launcher")]
