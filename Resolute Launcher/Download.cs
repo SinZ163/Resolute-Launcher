@@ -157,7 +157,7 @@ namespace Resolute_Launcher {
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
             client.DownloadFileCompleted += new AsyncCompletedEventHandler(jinput_DownloadFileCompleted);
             mainForm.statusLabel.Text = "Downloading jinput";
-            client.DownloadFileAsync(jinput, Path.Combine(path, "jinput.jar");
+            client.DownloadFileAsync(jinput, Path.Combine(path, "jinput.jar"));
         }
 
         void jinput_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e) {

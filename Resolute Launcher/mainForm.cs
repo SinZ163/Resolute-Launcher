@@ -31,7 +31,7 @@ namespace Resolute_Launcher {
 
         public String path;
 
-        public String rootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "/.resolute/");
+        public String rootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".resolute/");
 
 
 
