@@ -58,6 +58,22 @@ namespace Resolute_Launcher {
             proc.Start();
             Application.Exit();
         }
+
+        public void launchDemo() {
+            ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo("cmd.exe", "/q /c cd " + path + " & java -Djava.library.path=\"natives\" -cp jinput.jar;lwjgl.jar;lwjgl_util.jar;minecraft.jar net.minecraft.client.Minecraft Player - -demo");
+            Process proc = new System.Diagnostics.Process();
+
+            if (consoleButton.Checked == false) {
+                procStartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
+            }
+            else {
+                procStartInfo.Arguments += " &pause";
+            }
+
+            proc.StartInfo = procStartInfo;
+            proc.Start();
+            Application.Exit();
+        }
         /*
         \\ ==================================================== //
                                   Misc
