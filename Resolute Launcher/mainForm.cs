@@ -31,7 +31,7 @@ namespace Resolute_Launcher {
 
         public String path;
 
-        public String rootPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).ToString() + "/.resolute/";
+        public String rootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "/.resolute/");
 
 
 
@@ -72,10 +72,10 @@ namespace Resolute_Launcher {
 
         private void forceUpdateButton_Click(object sender, EventArgs e) {
             if (snapshotButton.Checked == true) {
-                Directory.Delete(rootPath + "snapshot/.minecraft/bin/", true);
+                Directory.Delete(Path.Combine(rootPath, "snapshot/.minecraft/bin/"), true);
             }
             else if (normalButton.Checked == true) {
-                Directory.Delete(rootPath + "normal/.minecraft/bin/", true);
+                Directory.Delete(Path.Combine(rootPath, "normal/.minecraft/bin/"), true);
             }
         }
 

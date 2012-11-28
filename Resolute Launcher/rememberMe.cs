@@ -19,8 +19,8 @@ namespace Resolute_Launcher {
         private static readonly byte[] LastLoginSalt = new byte[] { 0x0c, 0x9d, 0x4a, 0xe4, 0x1e, 0x83, 0x15, 0xfc };
         private const string LastLoginPassword = "passwordfile";
 
-        static String rootPath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData).ToString() + "/.resolute/";
-        static String lastLoginPath = rootPath + "lastlogin";
+        static String rootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "/.resolute/");
+        static String lastLoginPath = Path.Combine(rootPath, "lastlogin");
 
         public String[] GetLastLogin() {
             try {
@@ -86,10 +86,10 @@ namespace Resolute_Launcher {
                     settings += "0";
                 }
 
-                if (File.Exists(mainForm.rootPath + "rememberMe.txt")) {
-                    File.Delete(mainForm.rootPath + "rememberMe.txt");
+                if (File.Exists(Path.Combine(rootPath, "rememberMe.txt"))) {
+                    File.Delete(Path.Combine(rootPath, "rememberMe.txt"));
                 }
-                using (StreamWriter sw = File.CreateText(mainForm.rootPath + "rememberMe.txt")) {
+                using (StreamWriter sw = File.CreateText(Path.Combine(rootPath, "rememberMe.txt"))) {
                     sw.WriteLine(settings);
                     sw.Close();
                 }
@@ -97,15 +97,14 @@ namespace Resolute_Launcher {
         }
 
         public void remember() {
-            if (File.Exists(rootPath + "lastlogin")) {
-                String[] loginInfo = GetLastLogin();
-                mainForm.userText.Text = loginInfo[0];
-                mainForm.passText.Text = loginInfo[1];
-            }
-
-            if (File.Exists(rootPath + "rememberMe.txt")) {
+            if (File.Exists(Path.Combine(rootPath, "rememberMe.txt"))) {
+                if (File.Exists(Path.Combine(rootPath, "lastlogin"))) {
+                    String[] loginInfo = GetLastLogin();
+                    mainForm.userText.Text = loginInfo[0];
+                    mainForm.passText.Text = loginInfo[1];
+                }
                 String settings;
-                using (StreamReader sr = File.OpenText(rootPath + "rememberMe.txt")) {
+                using (StreamReader sr = File.OpenText(Path.Combine(rootPath, "rememberMe.txt"))) {
                     settings = sr.ReadLine();
                     sr.Close();
                 }

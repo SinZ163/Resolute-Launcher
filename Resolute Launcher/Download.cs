@@ -14,6 +14,11 @@ namespace Resolute_Launcher {
         String version;
         String link;
         String downloadlink;
+
+        Uri native;
+        Uri lwjgl;
+        Uri jinput;
+        Uri util;
         
         Resolute_Launcher mainForm;
 
@@ -23,6 +28,11 @@ namespace Resolute_Launcher {
             this.version = mainForm.version;
             this.link = mainForm.link;
             this.downloadlink = mainForm.downloadlink;
+
+            native = new Uri(downloadlink + "windows_natives.jar");
+            lwjgl  = new Uri(downloadlink + "lwjgl.jar");
+            jinput = new Uri(downloadlink + "jinput.jar");
+            util   = new Uri(downloadlink + "lwjgl_util.jar");
         }
         void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) {
             mainForm.statusBar.Value = e.ProgressPercentage;
@@ -37,20 +47,20 @@ namespace Resolute_Launcher {
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);
 
-            if (!File.Exists(path + version + ".txt")) {
-                if (File.Exists(path + "minecraft.jar")) {
+            if (!File.Exists(Path.Combine(path,version + ".txt"))) {
+                if (File.Exists(Path.Combine(path, "minecraft.jar"))) {
                     DialogResult result = MessageBox.Show("There is an update available, Do you want to update?", "Update available", MessageBoxButtons.YesNo);
                     if (result == DialogResult.Yes) {
-                        using (StreamWriter sw = File.CreateText(path + version + ".txt")) {
+                        using (StreamWriter sw = File.CreateText(Path.Combine(path, version + ".txt"))) {
                             sw.Write(link);
                             sw.Close();
                         }
                         mainForm.statusLabel.Text = "Downloading minecraft.jar";
-                        client.DownloadFileAsync(new Uri(link), path + "minecraft.jar");
+                        client.DownloadFileAsync(new Uri(link), Path.Combine(path, "minecraft.jar"));
                     }
                     else {
                         if (!File.Exists(path + "dependancy.txt")) {
-                            using (StreamWriter sw = File.CreateText(path + "dependancy.txt")) {
+                            using (StreamWriter sw = File.CreateText(Path.Combine(path, "dependancy.txt"))) {
                                 sw.Write(link);
                                 sw.Close();
                             }
@@ -62,17 +72,17 @@ namespace Resolute_Launcher {
                     }
                 }
                 else {
-                    using (StreamWriter sw = File.CreateText(path + version + ".txt")) {
+                    using (StreamWriter sw = File.CreateText(Path.Combine(path, version + ".txt"))) {
                         sw.Write(link);
                         sw.Close();
                     }
                     mainForm.statusLabel.Text = "Downloading minecraft.jar";
-                    client.DownloadFileAsync(new Uri(link), path + "minecraft.jar");
+                    client.DownloadFileAsync(new Uri(link), Path.Combine(path, "minecraft.jar"));
                 }
             }
             else {
                 if (!File.Exists(path + "dependancy.txt")) {
-                    using (StreamWriter sw = File.CreateText(path + "dependancy.txt")) {
+                    using (StreamWriter sw = File.CreateText(Path.Combine(path, "dependancy.txt"))) {
                         sw.Write(link);
                         sw.Close();
                     }
@@ -90,8 +100,8 @@ namespace Resolute_Launcher {
                 MessageBox.Show(e.Error.Message);
             }
 
-            if (!File.Exists(path + "dependancy.txt")) {
-                using (StreamWriter sw = File.CreateText(path + "dependancy.txt")) {
+            if (!File.Exists(Path.Combine(path, "dependancy.txt"))) {
+                using (StreamWriter sw = File.CreateText(Path.Combine(path, "dependancy.txt"))) {
                     sw.Write(link);
                     sw.Close();
                 }
@@ -113,11 +123,8 @@ namespace Resolute_Launcher {
             WebClient client = new WebClient();
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
             client.DownloadFileCompleted += new AsyncCompletedEventHandler(Native_DownloadFileCompleted);
-
-            Uri native = new Uri(downloadlink + "windows_natives.jar");
-
             mainForm.statusLabel.Text = "Downloading natives";
-            client.DownloadFileAsync(native, path + "natives.zip");
+            client.DownloadFileAsync(native, Path.Combine(path, "natives.zip"));
         }
 
         void Native_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e) {
@@ -126,7 +133,7 @@ namespace Resolute_Launcher {
                 MessageBox.Show(e.Error.Message);
             }
 
-            ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo("winrar.exe", "e " + path + "natives.zip " + path + "natives\\");
+            ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo("winrar.exe", "e " + Path.Combine(path, "natives.zip") +" "+ Path.Combine(path, "natives/"));
             Process proc = new System.Diagnostics.Process();
             procStartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             proc.StartInfo = procStartInfo;
@@ -135,9 +142,8 @@ namespace Resolute_Launcher {
             WebClient client = new WebClient();
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
             client.DownloadFileCompleted += new AsyncCompletedEventHandler(lwjgl_DownloadFileCompleted);
-            Uri lwjgl = new Uri(downloadlink + "lwjgl.jar");
             mainForm.statusLabel.Text = "Downloading lwjgl";
-            client.DownloadFileAsync(lwjgl, path + "lwjgl.jar");
+            client.DownloadFileAsync(lwjgl, Path.Combine(path, "lwjgl.jar"));
 
         }
 
@@ -150,9 +156,8 @@ namespace Resolute_Launcher {
             WebClient client = new WebClient();
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
             client.DownloadFileCompleted += new AsyncCompletedEventHandler(jinput_DownloadFileCompleted);
-            Uri jinput = new Uri(downloadlink + "jinput.jar");
             mainForm.statusLabel.Text = "Downloading jinput";
-            client.DownloadFileAsync(jinput, path + "jinput.jar");
+            client.DownloadFileAsync(jinput, Path.Combine(path, "jinput.jar");
         }
 
         void jinput_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e) {
@@ -164,9 +169,8 @@ namespace Resolute_Launcher {
             WebClient client = new WebClient();
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
             client.DownloadFileCompleted += new AsyncCompletedEventHandler(Dependancy_DownloadFileCompleted);
-            Uri util = new Uri(downloadlink + "lwjgl_util.jar");
             mainForm.statusLabel.Text = "Downloading util";
-            client.DownloadFileAsync(util, path + "lwjgl_util.jar");
+            client.DownloadFileAsync(util, Path.Combine(path, "lwjgl_util.jar"));
         }
 
         void Dependancy_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e) {
