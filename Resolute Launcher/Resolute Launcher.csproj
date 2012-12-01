@@ -71,6 +71,7 @@
       <DependentUpon>aboutResolute.cs</DependentUpon>
     </Compile>
     <Compile Include="Download.cs" />
+    <Compile Include="Launch.cs" />
     <Compile Include="Login.cs" />
     <Compile Include="rememberMe.cs" />
     <Compile Include="mainForm.cs">

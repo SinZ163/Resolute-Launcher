@@ -16,64 +16,20 @@ namespace Resolute_Launcher {
     public partial class Resolute_Launcher : Form {
 
         public String username;
-        public String password;
-        public String result;
         public String sessionID;
-        public String version;
-        public Boolean mojangAccount;
+
+        public Boolean allowOffline;
 
         public rememberMe rememberMe;
 
         //public int completed = 1;
 
         public String link = "";
-        public String downloadlink = "http://s3.amazonaws.com/MinecraftDownload/";
 
         public String path;
 
         public String rootPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), ".resolute/");
 
-
-
-
-
-        /*
-        \\ ==================================================== //
-                            Launch Minecraft.jar
-        // ==================================================== \\
-        */
-
-        public void launchMinecraft() {
-            ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo("cmd.exe", "/q /c cd "+path+" & java -Djava.library.path=\"natives\" -cp jinput.jar;lwjgl.jar;lwjgl_util.jar;minecraft.jar net.minecraft.client.Minecraft " + username + " " + sessionID);
-            Process proc = new System.Diagnostics.Process();
-
-            if (consoleButton.Checked == false) {
-                procStartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            }
-            else {
-                procStartInfo.Arguments += " &pause";
-            }
-
-            proc.StartInfo = procStartInfo;
-            proc.Start();
-            Application.Exit();
-        }
-
-        public void launchDemo() {
-            ProcessStartInfo procStartInfo = new System.Diagnostics.ProcessStartInfo("cmd.exe", "/q /c cd " + path + " & java -Djava.library.path=\"natives\" -cp jinput.jar;lwjgl.jar;lwjgl_util.jar;minecraft.jar net.minecraft.client.Minecraft Player - -demo");
-            Process proc = new System.Diagnostics.Process();
-
-            if (consoleButton.Checked == false) {
-                procStartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
-            }
-            else {
-                procStartInfo.Arguments += " &pause";
-            }
-
-            proc.StartInfo = procStartInfo;
-            proc.Start();
-            Application.Exit();
-        }
         /*
         \\ ==================================================== //
                                   Misc
@@ -108,13 +64,21 @@ namespace Resolute_Launcher {
             InitializeComponent();
         }
 
-        public void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) {
-            statusBar.Value = e.ProgressPercentage;
-        }
-
         private void button1_Click(object sender, EventArgs e) {
             aboutResolute about = new aboutResolute();
             about.Show();
+        }
+
+        private void launchButton_Click(object sender, EventArgs e) {
+            int gamemode = 0;
+            if (normalButton.Checked) {
+                gamemode = 0;
+            }
+            else if (snapshotButton.Checked) {
+                gamemode = 1;
+            }
+            Login login = new Login(this);
+            login.Init(userText.Text, passText.Text, gamemode, updateButton.Checked, rootPath, consoleButton.Checked);
         }
     }
 }

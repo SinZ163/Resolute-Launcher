@@ -8,44 +8,34 @@ using System.Windows.Forms;
 namespace Resolute_Launcher {
     class Snapshot {
 
-        Resolute_Launcher mainForm;
-        public Snapshot(Resolute_Launcher mainForm) {
-            this.mainForm = mainForm;
-        }
-        public void detectSnapshotVersion() {
+        public String link;
+        public String version;
+
+        public void getLink() {
             WebClient client = new WebClient();
-            client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(mainForm.DownloadProgressChanged);
-            client.DownloadDataCompleted += new DownloadDataCompletedEventHandler(snapshot_DownloadDataCompleted);
-            mainForm.statusLabel.Text = "Checking for Updates!";
-            client.DownloadDataAsync(new Uri("http://mojang.com/feed"));
-        }
 
-        void snapshot_DownloadDataCompleted(object sender, DownloadDataCompletedEventArgs e) {
-            mainForm.statusBar.Value = 0;
-            if (e.Error != null) {
-                MessageBox.Show(e.Error.Message);
-            }
             byte[] webPage = { };
-            webPage = e.Result;
-
+            try {
+                webPage = client.DownloadData(new Uri("http://mojang.com/feed"));
+            }
+            catch (Exception e) {
+                MessageBox.Show(e.StackTrace);
+            }
             String lineArray = Encoding.UTF8.GetString(webPage);
             String[] lines = lineArray.Split(new Char[] { });
             int i = 0;
             bool b = false;
             while (b != true) {
                 if (lines[i].Contains("assets") & lines[i].Contains("minecraft.jar")) {
-                    mainForm.link = lines[i];
-                    mainForm.link = mainForm.link.Substring(6, mainForm.link.Length - 6); // Remove first 6.
-                    mainForm.link = mainForm.link.Substring(0, mainForm.link.IndexOf("\""));
-                    String[] mysplit = mainForm.link.Split('/');
-                    mainForm.version = mysplit[3];
+                    link = lines[i];
+                    link = link.Substring(6, link.Length - 6); // Remove first 6.
+                    link = link.Substring(0, link.IndexOf("\""));
+                    String[] mysplit = link.Split('/');
+                    version = mysplit[3];
                     b = true;
                 }
                 i++;
             }
-
-            Download download = new Download(mainForm);
-            download.downloadAndInstall();
-        }    
+        }   
     }
 }

@@ -11,9 +11,9 @@ using System.Windows.Forms;
 namespace Resolute_Launcher {
     public class rememberMe { //Functions provided by SirCmpwn
 
-        Resolute_Launcher mainForm;
-        public rememberMe(Resolute_Launcher mainForm) {
-            this.mainForm = mainForm;
+/**/        Resolute_Launcher mainForm;
+/**/        public rememberMe(Resolute_Launcher mainForm) {
+/**/            this.mainForm = mainForm;
         }
 
         private static readonly byte[] LastLoginSalt = new byte[] { 0x0c, 0x9d, 0x4a, 0xe4, 0x1e, 0x83, 0x15, 0xfc };
@@ -60,26 +60,26 @@ namespace Resolute_Launcher {
 
         //rememberMe functions
 
-        public void save() {
-            if (mainForm.rememberBox.Checked) {
-                SetLastLogin(mainForm.username, mainForm.password);
+        public void save(String username, String password) {
+/**/            if (mainForm.rememberBox.Checked) {
+                    SetLastLogin(username, password);
 
                 String settings;
-                if (mainForm.updateButton.Checked) {
+/**/                if (mainForm.updateButton.Checked) {
                     settings = "1";
                 }
                 else {
                     settings = "0";
                 }
 
-                if (mainForm.consoleButton.Checked) {
+/**/                if (mainForm.consoleButton.Checked) {
                     settings += "1";
                 }
                 else {
                     settings += "0";
                 }
 
-                if (mainForm.snapshotButton.Checked) {
+/**/                if (mainForm.snapshotButton.Checked) {
                     settings += "1";
                 }
                 else {
@@ -100,8 +100,8 @@ namespace Resolute_Launcher {
             if (File.Exists(Path.Combine(rootPath, "rememberMe.txt"))) {
                 if (File.Exists(Path.Combine(rootPath, "lastlogin"))) {
                     String[] loginInfo = GetLastLogin();
-                    mainForm.userText.Text = loginInfo[0];
-                    mainForm.passText.Text = loginInfo[1];
+/**/                    mainForm.userText.Text = loginInfo[0];
+/**/                    mainForm.passText.Text = loginInfo[1];
                 }
                 String settings;
                 using (StreamReader sr = File.OpenText(Path.Combine(rootPath, "rememberMe.txt"))) {
@@ -115,33 +115,33 @@ namespace Resolute_Launcher {
                     switch (i) {
                         case 0:
                             if (settingArray[0] == '1') {
-                                mainForm.updateButton.Checked = true;
+/**/                                mainForm.updateButton.Checked = true;
                             }
                             else {
-                                mainForm.updateButton.Checked = false;
+/**/                                mainForm.updateButton.Checked = false;
                             }
                             break;
                         case 1:
                             if (settingArray[1] == '1') {
-                                mainForm.consoleButton.Checked = true;
+/**/                                mainForm.consoleButton.Checked = true;
                             }
                             else {
-                                mainForm.consoleButton.Checked = false;
+/**/                                mainForm.consoleButton.Checked = false;
                             }
                             break;
                         case 2:
                             if (settingArray[2] == '1') {
-                                mainForm.snapshotButton.Checked = true;
+/**/                                mainForm.snapshotButton.Checked = true;
                             }
                             else {
-                                mainForm.normalButton.Checked = true;
+/**/                                mainForm.normalButton.Checked = true;
                             }
                             break;
                     }
                     i++;
                 }
 
-                mainForm.rememberBox.Checked = true;
+/**/                mainForm.rememberBox.Checked = true;
             }
         }
 

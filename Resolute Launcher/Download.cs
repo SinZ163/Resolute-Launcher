@@ -15,19 +15,27 @@ namespace Resolute_Launcher {
         String link;
         String downloadlink;
 
+        String username;
+        String sessionID;
+
+        Boolean console;
+
         Uri native;
         Uri lwjgl;
         Uri jinput;
         Uri util;
-        
-        Resolute_Launcher mainForm;
 
-        public Download(Resolute_Launcher mainForm) {
+        Resolute_Launcher mainForm;
+        
+
+        public Download(Resolute_Launcher mainForm, String path, String downloadlink, String username, String sessionID, Boolean console) {
             this.mainForm = mainForm;
-            this.path = mainForm.path;
-            this.version = mainForm.version;
-            this.link = mainForm.link;
-            this.downloadlink = mainForm.downloadlink;
+            this.path = path;
+
+            this.username = username;
+            this.sessionID = sessionID;
+            this.console = console;
+            this.downloadlink = downloadlink;
 
             native = new Uri(downloadlink + "windows_natives.jar");
             lwjgl  = new Uri(downloadlink + "lwjgl.jar");
@@ -35,10 +43,12 @@ namespace Resolute_Launcher {
             util   = new Uri(downloadlink + "lwjgl_util.jar");
         }
         void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e) {
-            mainForm.statusBar.Value = e.ProgressPercentage;
+/**/            mainForm.statusBar.Value = e.ProgressPercentage;
         }
 
-        public void downloadAndInstall() {
+        public void downloadAndInstall(String link, String version) {
+            this.link = link;
+            this.version = version;
 
             WebClient client = new WebClient();
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
@@ -55,7 +65,7 @@ namespace Resolute_Launcher {
                             sw.Write(link);
                             sw.Close();
                         }
-                        mainForm.statusLabel.Text = "Downloading minecraft.jar";
+/**/                        mainForm.statusLabel.Text = "Downloading minecraft.jar";
                         client.DownloadFileAsync(new Uri(link), Path.Combine(path, "minecraft.jar"));
                     }
                     else {
@@ -67,7 +77,7 @@ namespace Resolute_Launcher {
                             downloadAndInstallDependancys();
                         }
                         else {
-                            mainForm.launchMinecraft();
+/**/                            Launch launch = new Launch(path, username, sessionID, console);
                         }
                     }
                 }
@@ -76,7 +86,7 @@ namespace Resolute_Launcher {
                         sw.Write(link);
                         sw.Close();
                     }
-                    mainForm.statusLabel.Text = "Downloading minecraft.jar";
+/**/                    mainForm.statusLabel.Text = "Downloading minecraft.jar";
                     client.DownloadFileAsync(new Uri(link), Path.Combine(path, "minecraft.jar"));
                 }
             }
@@ -89,13 +99,13 @@ namespace Resolute_Launcher {
                     downloadAndInstallDependancys();
                 }
                 else {
-                    mainForm.launchMinecraft();
+/**/                            Launch launch = new Launch(path, username, sessionID, console);
                 }
             }
         }
 
         void Download_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e) {
-            mainForm.statusBar.Value = 0;
+/**/            mainForm.statusBar.Value = 0;
             if (e.Error != null) {
                 MessageBox.Show(e.Error.Message);
             }
@@ -108,7 +118,7 @@ namespace Resolute_Launcher {
                 downloadAndInstallDependancys();
             }
             else {
-                mainForm.launchMinecraft();
+                Launch launch = new Launch(path, username, sessionID, console);
             }
         }
 
@@ -123,12 +133,12 @@ namespace Resolute_Launcher {
             WebClient client = new WebClient();
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
             client.DownloadFileCompleted += new AsyncCompletedEventHandler(Native_DownloadFileCompleted);
-            mainForm.statusLabel.Text = "Downloading natives";
+/**/            mainForm.statusLabel.Text = "Downloading natives";
             client.DownloadFileAsync(native, Path.Combine(path, "natives.zip"));
         }
 
         void Native_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e) {
-            mainForm.statusBar.Value = 0;
+/**/            mainForm.statusBar.Value = 0;
             if (e.Error != null) {
                 MessageBox.Show(e.Error.Message);
             }
@@ -142,13 +152,13 @@ namespace Resolute_Launcher {
             WebClient client = new WebClient();
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
             client.DownloadFileCompleted += new AsyncCompletedEventHandler(lwjgl_DownloadFileCompleted);
-            mainForm.statusLabel.Text = "Downloading lwjgl";
+/**/            mainForm.statusLabel.Text = "Downloading lwjgl";
             client.DownloadFileAsync(lwjgl, Path.Combine(path, "lwjgl.jar"));
 
         }
 
         void lwjgl_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e) {
-            mainForm.statusBar.Value = 0;
+/**/            mainForm.statusBar.Value = 0;
             if (e.Error != null) {
                 MessageBox.Show(e.Error.Message);
             }
@@ -156,12 +166,12 @@ namespace Resolute_Launcher {
             WebClient client = new WebClient();
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
             client.DownloadFileCompleted += new AsyncCompletedEventHandler(jinput_DownloadFileCompleted);
-            mainForm.statusLabel.Text = "Downloading jinput";
+/**/            mainForm.statusLabel.Text = "Downloading jinput";
             client.DownloadFileAsync(jinput, Path.Combine(path, "jinput.jar"));
         }
 
         void jinput_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e) {
-            mainForm.statusBar.Value = 0;
+/**/            mainForm.statusBar.Value = 0;
             if (e.Error != null) {
                 MessageBox.Show(e.Error.Message);
             }
@@ -169,17 +179,17 @@ namespace Resolute_Launcher {
             WebClient client = new WebClient();
             client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
             client.DownloadFileCompleted += new AsyncCompletedEventHandler(Dependancy_DownloadFileCompleted);
-            mainForm.statusLabel.Text = "Downloading util";
+/**/            mainForm.statusLabel.Text = "Downloading util";
             client.DownloadFileAsync(util, Path.Combine(path, "lwjgl_util.jar"));
         }
 
         void Dependancy_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e) {
-            mainForm.statusBar.Value = 0;
+/**/            mainForm.statusBar.Value = 0;
             if (e.Error != null) {
                 MessageBox.Show(e.Error.Message);
             }
-            mainForm.statusLabel.Text = "Launching minecraft";
-            mainForm.launchMinecraft();
+/**/            mainForm.statusLabel.Text = "Launching minecraft";
+            Launch launch = new Launch(path, username, sessionID, console);
         }
     }
 }

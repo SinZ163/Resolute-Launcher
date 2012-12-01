@@ -23,8 +23,6 @@
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent() {
-            Login login = new Login(this);
-
             this.launchButton = new System.Windows.Forms.Button();
             this.passText = new System.Windows.Forms.TextBox();
             this.userText = new System.Windows.Forms.TextBox();
@@ -52,7 +50,7 @@
             this.launchButton.TabIndex = 2;
             this.launchButton.Text = "Launch!";
             this.launchButton.UseVisualStyleBackColor = true;
-            this.launchButton.Click += new System.EventHandler(login.launchButton_Click);
+            this.launchButton.Click += new System.EventHandler(this.launchButton_Click);
             // 
             // passText
             // 
